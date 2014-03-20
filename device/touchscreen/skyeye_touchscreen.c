@@ -27,6 +27,7 @@
 #include "skyeye.h"
 #include "portable/portable.h"
 #include "skyeye_touchscreen.h"
+#include "stdlib.h"
 
 struct touchscreen_option
 {

@@ -26,9 +26,11 @@
 extern int init_register_type();
 const char* skyeye_module = "gdbserver";
 void com_remote_gdb();
+void com_trap();
 void module_init(){
 	init_register_type();
 	add_command("remote-gdb", com_remote_gdb, "Open remote gdb debugger.\n");
+	add_command("trap", com_trap, "interrupt skyeye.\n");
 }
 void module_fini(){
 }

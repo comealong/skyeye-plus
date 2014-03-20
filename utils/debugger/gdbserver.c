@@ -211,6 +211,13 @@ void com_remote_gdb(){
 	create_thread(sim_debug, arch_instance, &id);
 }
 
+void com_trap()
+{
+	printf("interrupted for debugging\n");
+	asm("int $3");
+	// return 0;
+}
+
 void
 remote_close ()
 {
@@ -393,6 +400,12 @@ getpkt (char *buf)
 			c = readchar ();
 			if (c == '$')
 				break;
+			else if (c == 3) { // FIXME: ctrl+c时产生这个消息
+				buf[0] = c;
+				return 1;
+			} else
+				printf("%s: get a invalid char: %c(%d)\n", __FUNCTION__, c, c);
+						
 			if (remote_debug)
 				DBG_RDI ("[getpkt: discarding char '%c']\n",
 					c);
@@ -979,6 +992,7 @@ sim_debug ()
 	unsigned int len,addr;
 	CORE_ADDR mem_addr;
 	int type,size;
+	int noreply = 0;
 
 	registers = (unsigned char *)malloc(current_reg_type->register_bytes);
 
@@ -992,9 +1006,14 @@ sim_debug ()
 		restart:
 		setjmp (toplevel);
 		while (getpkt (own_buf) > 0) {
+			noreply = 0;
+			// printf("%s: cmd(%s)\n", __FUNCTION__, own_buf);
 			unsigned char sig;
 			i = 0;
 			ch = own_buf[i++];
+			//if (ch == 'c')
+			//	asm("int $3");
+			
 			switch (ch) {
 			case 'd':
 				remote_debug = !remote_debug;
@@ -1133,9 +1152,14 @@ sim_debug ()
 				//ARMul_DoProg (state);
 				//sim_resume(0);
 				gdbserver_cont();
-				prepare_resume_reply (own_buf, status,
-						      signal);
+				noreply = 1; // no reply
+				//prepare_resume_reply (own_buf, status,
+					//	      signal);
+				// asm("int $3");
 				break;
+
+			case 3:
+				printf("ctr+c break\n");
 			case 's':
 				//chy 2005-07-30
 				//sim_resume(1);
@@ -1262,7 +1286,8 @@ sim_debug ()
 				break;
 			}
 
-			putpkt (own_buf);
+			if (!noreply)
+				putpkt (own_buf);
 
 			if (status == 'W')
 				fprintf (stderr,

@@ -39,6 +39,7 @@
 #include <stdint.h>
 
 #include <stdlib.h>
+#include <signal.h>
 
 #ifndef SKYEYE_BIN
 const char* default_bin_dir = "/opt/skyeye/bin/";
@@ -123,6 +124,7 @@ static int create_uart_console(struct uart_link_state * ul_state){
 	int on, length;
 	struct sockaddr_in server, from;
 	char * froms;
+	signal (SIGINT, SIG_IGN);
 	printf("In %s\n", __FUNCTION__);
 	sv_skt = socket(AF_INET, SOCK_STREAM, 0);
 	if (sv_skt < 0) SKYEYE_ERR("opening stream socket");

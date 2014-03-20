@@ -287,18 +287,29 @@ class SkyEyeCli(cmd.Cmd):
 
 #################### log-bus ##########################
 
+#################### trap ########################
+    def do_trap(self, arg):
+#		print 'In do_trap'
+        libgdbserver.com_trap()
+
+    def help_trap(self):
+        print "trap : trap."
+
+#################### trap ########################
+
 #################### remote-gdb ########################
 
-    def do_remote_gdb(self, arg):
+    def do_remote_gdb1(self, arg):
 #        print "In do_remote_gdb"
         libgdbserver.com_remote_gdb()
 
-    def help_remote_gdb(self):
+    def help_remote_gdb1(self):
         help_info_open()
         print "remote-gdb : Open remote gdb debugger."
         help_info_close()
 
 #################### remote-gdb ########################
+
 
 #################### other COMMANDS ####################
 

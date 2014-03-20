@@ -199,9 +199,10 @@ CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
 #noinst_LIBRARIES =      libarm.a
-DEFS = -DMODET -g -O3 -D_FILE_OFFSET_BITS=64 -DSTANDALONE \
+DEFS = -DMODET -g -D_FILE_OFFSET_BITS=64 -DSTANDALONE \
 	-DDEFAULT_INLINE=0 -DNO_LCD @COMMON_CFLAGS@ $(am__append_4)
 DEPDIR = @DEPDIR@
+DLLTOOL = @DLLTOOL@
 DSYMUTIL = @DSYMUTIL@
 DUMPBIN = @DUMPBIN@
 ECHO_C = @ECHO_C@
@@ -230,6 +231,7 @@ LLVM = @LLVM@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
 MAKEINFO = @MAKEINFO@
+MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
 NM = @NM@
 NMEDIT = @NMEDIT@
@@ -263,6 +265,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
@@ -296,7 +299,6 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
-lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -1069,7 +1071,7 @@ uninstall-am: uninstall-pkglibLTLIBRARIES
 	tags uninstall uninstall-am uninstall-pkglibLTLIBRARIES
 
 armemu32.lo:common/armemu.c armemu.lo
-	$(LIBTOOL) --tag=CC --mode=compile $(CC) -DMODE32 $(DEFS) $(INCLUDES) -g -O2 -MT armemu32.lo -MD -MP -MF .deps/armemu32.Tpo -c -o armemu32.lo `test -f '$(srcdir)/common/armemu.c' || echo `$(srcdir)/common/armemu.c
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -DMODE32 $(DEFS) $(INCLUDES) -g -MT armemu32.lo -MD -MP -MF .deps/armemu32.Tpo -c -o armemu32.lo `test -f '$(srcdir)/common/armemu.c' || echo `$(srcdir)/common/armemu.c
 #	$(CC) -DMODE32 $(DEFS) $(INCLUDES) common/armemu.c -c -o $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

@@ -65,14 +65,33 @@ static inline ARMul_State* get_current_core(){
 	pthread_t id = pthread_self();
 	/* If thread is not in running mode, we should give the boot core */
 	if(get_thread_state(id) != Running_state){
-		return get_boot_core();
+		ARMul_State* stat = get_boot_core();
+		if (stat == NULL) {
+			printf("thread isn't running and boot core is invalid\n");
+			// asm("int $3");
+		}
+		return stat;
 	}
 	/* Judge if we are running in paralell or sequenial */
 	if(thread_exist(id)){
 		conf_object_t* conf_obj = get_current_exec_priv(id);
+		if (conf_obj == NULL) {
+			printf("thread %llx is exist, but cannot get the priv\n", id);
+			// asm("int $3");
+			ARMul_State* stat = get_boot_core();
+			printf("%s: stat = %p\n", __FUNCTION__, stat);
+			if (stat == NULL) {
+				printf("thread isn't running and boot core is invalid\n");
+				// asm("int $3");
+			}
+			return stat;
+		}
+
 		return (ARMul_State*)get_cast_conf_obj(conf_obj, "arm_core_t");
 	}
 
+	printf("%s: thread %llx is not exist\n", __FUNCTION__, id);
+	asm("int $3");
 	return NULL;
 }
 

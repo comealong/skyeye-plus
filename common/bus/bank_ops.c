@@ -100,7 +100,7 @@ int bus_read(short size, generic_address_t addr, uint32_t * value){
 	if((bank = bank_ptr(addr)) && (bank->bank_read))
 		bank->bank_read(size, addr, value);
 	else{
-		SKYEYE_ERR( "Bus read error, can not find corresponding bank for addr 0x%x,pc=0x%x\n", addr, arch_instance->get_pc());
+		SKYEYE_WARNING( "Bus read error, can not find corresponding bank for addr 0x%x,pc=0x%x\n", addr, arch_instance->get_pc());
 		return -1;
 		//skyeye_exit(-1);
 	}
@@ -145,9 +145,10 @@ int bus_write(short size, generic_address_t addr, uint32_t value){
         if(bank = bank_ptr(addr))
                 bank->bank_write(size, addr, value);
         else{
-		SKYEYE_ERR( "Bus write error, can not find corresponding bank for addr 0x%x,pc=0x%x\n", addr, arch_instance->get_pc());
-		//skyeye_exit(-1);
-	}
+			SKYEYE_WARNING( "Bus write error, can not find corresponding bank for addr 0x%x,pc=0x%x\n", addr, arch_instance->get_pc());
+			//skyeye_exit(-1);
+			return -1;
+		}
        return 0; 
 }
 

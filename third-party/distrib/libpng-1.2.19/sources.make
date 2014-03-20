@@ -1,5 +1,6 @@
 # this file is included by various Makefiles and defines the set of sources used by our version of LibPng
 #
+CFLAGS=-g -O2
 LIBPNG_SOURCES := png.c pngerror.c pngget.c pngmem.c pngpread.c pngread.c \
                   pngrio.c pngrtran.c pngrutil.c pngset.c pngtrans.c pngvcrd.c pngwio.c \
                   pngwrite.c pngwtran.c pngwutil.c

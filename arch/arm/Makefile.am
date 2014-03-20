@@ -21,7 +21,7 @@ endif
 
 pkglib_LTLIBRARIES = libarm.la
 #noinst_LIBRARIES =      libarm.a
-DEFS = -DMODET -g -O3 -D_FILE_OFFSET_BITS=64 -DSTANDALONE -DDEFAULT_INLINE=0 -DNO_LCD @COMMON_CFLAGS@
+DEFS = -DMODET -g -D_FILE_OFFSET_BITS=64 -DSTANDALONE -DDEFAULT_INLINE=0 -DNO_LCD @COMMON_CFLAGS@
 if LLVM_EXIST
 DEFS += -DLLVM_EXIST
 endif
@@ -29,5 +29,5 @@ endif
 libarm_la_LIBADD = armemu32.lo
 INCLUDES = -I$(top_srcdir)/arch/arm/common -I$(top_srcdir)/arch/arm/mach/ -I$(top_srcdir)/common/dyncom/ `llvm-config --cflags` @COMMON_INCLUDES@ -I$(top_srcdir)/third-party/include/
 armemu32.lo:common/armemu.c armemu.lo
-	$(LIBTOOL) --tag=CC --mode=compile $(CC) -DMODE32 $(DEFS) $(INCLUDES) -g -O2 -MT armemu32.lo -MD -MP -MF .deps/armemu32.Tpo -c -o armemu32.lo `test -f '$(srcdir)/common/armemu.c' || echo `$(srcdir)/common/armemu.c
+	$(LIBTOOL) --tag=CC --mode=compile $(CC) -DMODE32 $(DEFS) $(INCLUDES) -g -MT armemu32.lo -MD -MP -MF .deps/armemu32.Tpo -c -o armemu32.lo `test -f '$(srcdir)/common/armemu.c' || echo `$(srcdir)/common/armemu.c
 #	$(CC) -DMODE32 $(DEFS) $(INCLUDES) common/armemu.c -c -o $@

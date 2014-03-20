@@ -40,7 +40,7 @@ static arch_config_t *skyeye_archs[MAX_SUPP_ARCH];
 /*
  * register a supported arch to skyeye_archs
  */
-static generic_arch_t* running_arch_list;
+static generic_arch_t* running_arch_list = NULL;
 
 /**
 * @brief the default architecture
@@ -81,6 +81,7 @@ generic_arch_t * get_arch_instance(const char* arch_name){
 		skyeye_config_t* config = get_current_config();
 		if(config->arch == NULL){
 			printf("No valid arch option is provided.\n");
+			asm("int $3");
 			return NULL;
 		}
 		running_arch_list->arch_name = config->arch->arch_name;

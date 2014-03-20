@@ -1,4 +1,4 @@
-This is bfd.info, produced by makeinfo version 4.9 from bfd.texinfo.
+This is bfd.info, produced by makeinfo version 4.13 from bfd.texinfo.
 
 START-INFO-DIR-ENTRY
 * Bfd: (bfd).                   The Binary File Descriptor library.
@@ -7082,9 +7082,9 @@ The linker proper will call the `_bfd_link_add_symbols' entry point for
 each object file or archive which is to be linked (typically these are
 the files named on the command line, but some may also come from the
 linker script).  The entry point is responsible for examining the file.
-For an object file, BFD must add any relevant symbol information to
-the hash table.  For an archive, BFD must determine which elements of
-the archive should be used and adding them to the link.
+For an object file, BFD must add any relevant symbol information to the
+hash table.  For an archive, BFD must determine which elements of the
+archive should be used and adding them to the link.
 
    The a.out version of this entry point is
 `NAME(aout,link_add_symbols)'.

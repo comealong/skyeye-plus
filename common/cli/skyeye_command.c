@@ -47,6 +47,7 @@
 /*                                                                  */
 /* **************************************************************** */
 int com_help(char* arg);
+
 COMMAND default_cli_commands[] = {
   {"help", com_help, "List all the category for the commands.\n"},
   {"?", com_help, "Synonym for `help'.\n"},
@@ -73,7 +74,7 @@ COMMAND default_cli_commands[] = {
   {"load-conf", com_load_conf, "load a config file and parse it for SkyEye."},
   {"info", com_info, "show information for various objects. "},
   {"x", com_x, "display memory value at the address. "},
-  { (char *)NULL, (icpfunc_t *)NULL, (char *)NULL }
+  { (char *)NULL, (icpfunc_t *)NULL, (char *)NULL }, 
 };
 
 static COMMAND *command_list;

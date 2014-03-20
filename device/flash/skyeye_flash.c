@@ -28,6 +28,7 @@
 #include <sys/time.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #if __MINGW32__
 #include <fcntl.h>

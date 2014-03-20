@@ -27,6 +27,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <signal.h>
 
 #include "skyeye_types.h"
 #include "skyeye_arch.h"
@@ -79,6 +80,8 @@ work_thread_t* get_thread_by_id(pthread_t id){
 		if(pthread_equal(pthread_pool[i].id,id) != 0)
 			return &pthread_pool[i]; 
 	}
+
+	printf("thread %llx is not exist\n", id);
 	return NULL;
 }
 
@@ -93,6 +96,19 @@ skyeye_cell_t* get_cell_by_thread_id(pthread_t id){
 	work_thread_t* thread = get_thread_by_id(id);
 	skyeye_cell_t* cell = (skyeye_cell_t*)get_cast_conf_obj(thread->priv_data, "skyeye_cell_t");
 	return cell;
+}
+
+struct _thread_proc_arg {
+	void* (*fn)(void* );
+	void* arg;
+};
+static void* _thread_proc(struct _thread_proc_arg* p)
+{
+	void* (*fn)(void* ) = p->fn;
+	void* arg = p->arg;
+	free(p);
+	// signal (SIGINT, SIG_IGN);
+	return fn(arg);
 }
 
 /**
@@ -111,15 +127,20 @@ void create_thread(void *(*start_funcp)(void *), void* argp, pthread_t * idp)
 		return;
 	}	
 
-        do {
-                pthread_attr_t attr;
-                pthread_attr_init(&attr); /* initialize attr with default attributes */
-                pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);     /* schedule like a process */
-                res = pthread_create( idp, &attr, start_funcp, (void *)argp );
-                pthread_attr_destroy(&attr);
-        } while (res == -1 && errno == EAGAIN);
+	struct _thread_proc_arg* arg = (struct _thread_proc_arg* )
+		malloc(sizeof(struct _thread_proc_arg));
+	arg->fn = start_funcp;
+	arg->arg = argp;
 
-        if (res == -1) {
+    do {
+            pthread_attr_t attr;
+            pthread_attr_init(&attr); /* initialize attr with default attributes */
+            pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);     /* schedule like a process */
+            res = pthread_create( idp, &attr, _thread_proc, (void *)arg );
+            pthread_attr_destroy(&attr);
+    } while (res == -1 && errno == EAGAIN);
+
+    if (res == -1) {
 		perror("failed to create thread");
 		exit(-1);
 	}
@@ -196,6 +217,8 @@ bool_t thread_exist(pthread_t id){
 		if(pthread_equal(pthread_pool[i].id,id) != 0)
 			return True; 
 	}
+
+	printf("thread %llx is not exist\n", id);
 	return False;
 }
 /**

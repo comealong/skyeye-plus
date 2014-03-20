@@ -5,10 +5,12 @@
 ###
 ###  THESE ARE USED BY 'emulator-ui' AND THE STANDALONE PROGRAMS
 ###
-
 ###########################################################
 # Libpng configuration
 #
+
+CFLAGS =
+AM_CFLAGS = -g -O2
 LIBPNG_SOURCES = $(top_srcdir)/third-party/distrib/libpng-1.2.19/png.c $(top_srcdir)/third-party/distrib/libpng-1.2.19/pngerror.c $(top_srcdir)/third-party/distrib/libpng-1.2.19/pngget.c $(top_srcdir)/third-party/distrib/libpng-1.2.19/pngmem.c $(top_srcdir)/third-party/distrib/libpng-1.2.19/pngpread.c $(top_srcdir)/third-party/distrib/libpng-1.2.19/pngread.c \
 	$(top_srcdir)/third-party/distrib/libpng-1.2.19/pngrio.c $(top_srcdir)/third-party/distrib/libpng-1.2.19/pngrtran.c $(top_srcdir)/third-party/distrib/libpng-1.2.19/pngrutil.c $(top_srcdir)/third-party/distrib/libpng-1.2.19/pngset.c $(top_srcdir)/third-party/distrib/libpng-1.2.19/pngtrans.c $(top_srcdir)/third-party/distrib/libpng-1.2.19/pngvcrd.c $(top_srcdir)/third-party/distrib/libpng-1.2.19/pngwio.c \
 	$(top_srcdir)/third-party/distrib/libpng-1.2.19/pngwrite.c $(top_srcdir)/third-party/distrib/libpng-1.2.19/pngwtran.c $(top_srcdir)/third-party/distrib/libpng-1.2.19/pngwutil.c $(top_srcdir)/third-party/distrib/libpng-1.2.19/pnggccrd.c

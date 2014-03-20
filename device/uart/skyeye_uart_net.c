@@ -49,7 +49,7 @@
 #endif
 */
 #include <stdlib.h>
-
+#include <signal.h>
 
 /*
  * The structure used to represent the state of uart physical link.
@@ -118,6 +118,9 @@ static int create_uart_console(struct uart_link_state * ul_state){
 	int on, length;
 	struct sockaddr_in server, from;
 	char * froms;
+
+	// signal (SIGINT, SIG_IGN);
+	
 	printf("In %s\n", __FUNCTION__);
 	sv_skt = socket(AF_INET, SOCK_STREAM, 0);
 	if (sv_skt < 0) SKYEYE_ERR("opening stream socket");

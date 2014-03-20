@@ -135,8 +135,10 @@ conf_object_t* get_conf_obj_by_cast(void* obj, const char* type_string){
 	//printf("In %s,sizeof(conf_object_t)=0x%x\n", __FUNCTION__, sizeof(conf_object_t));
 	conf_object_t* conf_obj = skyeye_mm(sizeof(struct conf_object_s));
 	/* Memory allocation failed. */
-	if(conf_obj == NULL)
+	if(conf_obj == NULL) {
+		printf("%s: conf_obj is NULL\n", __FUNCTION__);
 		return NULL;
+	}
 	conf_obj->obj = obj;
 	//printf("In %s, type_string=%s\n", __FUNCTION__, type_string);
 	conf_obj->objname = skyeye_strdup(type_string);

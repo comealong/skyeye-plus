@@ -298,6 +298,14 @@ class SkyEyeCli(cmd.Cmd):
         print "remote-gdb : Open remote gdb debugger."
         help_info_close()
 
+	def do_trap(self,arg):
+		libgdbserver.com_trap()
+
+	def help_trap(self):
+		help_info_open()
+		print "trap : trap."
+		help_info_close()
+
 #################### remote-gdb ########################
 
 #################### other COMMANDS ####################

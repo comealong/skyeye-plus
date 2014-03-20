@@ -35,6 +35,8 @@
 #include "skyeye_net.h"
 #include "portable/portable.h"
 
+#include <stdlib.h>
+
 #define MAC_ADDR	"\0skyey"
 
 static nic_num = 0;

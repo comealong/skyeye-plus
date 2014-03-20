@@ -110,7 +110,7 @@ sim_read (generic_address_t addr, unsigned char *buffer, int size)
 {
 	int i;
 	int fault = 0;
-	unsigned char v;
+	unsigned int v;
 	skyeye_config_t* config = get_current_config();
 	generic_arch_t *arch_instance = get_arch_instance(config->arch->arch_name);
 	for (i = 0; i < size; i++) {
@@ -120,7 +120,7 @@ sim_read (generic_address_t addr, unsigned char *buffer, int size)
 			fault = mem_read(8, addr + i, &v);
 		if(fault) 
 			return -1; 
-		buffer[i]=v;
+		buffer[i]=(unsigned char)v;
 	}
 	return size;
 }
@@ -136,8 +136,8 @@ void gdbserver_cont(){
 		sim_resume(0);
 #endif
 	SIM_continue(0);
-	while(SIM_is_running())
-		;
+	// while(SIM_is_running())
+	//	;
 	return;
 }
 void gdbserver_step(){

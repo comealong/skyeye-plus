@@ -145,13 +145,14 @@ pkglib_LTLIBRARIES += libgtk_lcd.la
 endif
 pkglib_LTLIBRARIES += libsdl_lcd.la
 
+AM_CFLAGS = @COMMON_CFLAGS@
+AM_CFLAGS += `pkg-config --cflags --libs gtk+-2.0`
 
 DEFS = -DMODET -g -O2 -D_FILE_OFFSET_BITS=64 -DSTANDALONE -DDEFAULT_INLINE=0  @COMMON_CFLAGS@
 
 skyeye_bin_dir = \"$(prefix)/bin/\"
 INCLUDES = -I./ @COMMON_INCLUDES@ -I./uart_16550 -DSKYEYE_BIN=$(skyeye_bin_dir)
 INCLUDES += -I./nandflash 
-
 
 INCLUDES += @LCD_CFLAGS@
 if WIN32

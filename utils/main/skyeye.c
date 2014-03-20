@@ -359,7 +359,8 @@ void sigint_handler (int signum)
 	 if(skyeye_config.code_cov.prof_on)
 		cov_fini(skyeye_config.code_cov.prof_filename);
 #endif
-	longjmp (ctrl_c_cleanup, 1);
+	printf("interrupt signal received\n");
+	// longjmp (ctrl_c_cleanup, 1);
 }
 #endif
 
@@ -586,6 +587,8 @@ int
 main (int argc, char **argv)
 {
 	int ret;
+
+	// signal (SIGINT, SIG_IGN);
 
 	sky_pref_t* pref = get_skyeye_pref();
 	assert(pref != NULL);	

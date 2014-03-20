@@ -303,6 +303,10 @@ static void arm_cpu_init()
 		arm_core_init(core, i);
 		skyeye_exec_t* exec = create_exec();
 		exec->priv_data = get_conf_obj_by_cast(core, "arm_core_t");
+		if (exec->priv_data == NULL) {
+			printf("[WARNING]%s: the priv_data(conf_obj) of core %d is NULL.\n", 
+				__FUNCTION__, i);
+		}
 		//exec->priv_data = get_conf_obj_by_cast(core, "ARMul_State");
 		exec->run = per_cpu_step;
 		exec->stop = per_cpu_stop;
@@ -426,6 +430,13 @@ arm_set_pc (generic_address_t pc)
 static generic_address_t
 arm_get_pc(){
 	ARMul_State *state = get_current_core();
+	if (state == NULL) {
+		// assert(0);
+		// __asm__("int $3");
+		// state = get_current_core();
+		return 0;
+	}
+
 	return (generic_address_t)state->Reg[15];
 }
 static int
@@ -569,6 +580,8 @@ static char* arm_get_regname_by_id(int id){
 }
 static uint32 arm_get_regval_by_id(int id){
 	ARMul_State * state = get_current_core();
+	if (state == NULL)
+		return 0;
 	if (id == CPSR_REG)
 		return state->Cpsr;
 	else

@@ -385,6 +385,7 @@ CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
 DEFS = -DMODET -g -O2 -D_FILE_OFFSET_BITS=64 -DSTANDALONE -DDEFAULT_INLINE=0  @COMMON_CFLAGS@
 DEPDIR = @DEPDIR@
+DLLTOOL = @DLLTOOL@
 DSYMUTIL = @DSYMUTIL@
 DUMPBIN = @DUMPBIN@
 ECHO_C = @ECHO_C@
@@ -413,6 +414,7 @@ LLVM = @LLVM@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
 MAKEINFO = @MAKEINFO@
+MANIFEST_TOOL = @MANIFEST_TOOL@
 MKDIR_P = @MKDIR_P@
 NM = @NM@
 NMEDIT = @NMEDIT@
@@ -446,6 +448,7 @@ abs_builddir = @abs_builddir@
 abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
+ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
 ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
@@ -479,7 +482,6 @@ libdir = @libdir@
 libexecdir = @libexecdir@
 localedir = @localedir@
 localstatedir = @localstatedir@
-lt_ECHO = @lt_ECHO@
 mandir = @mandir@
 mkdir_p = @mkdir_p@
 oldincludedir = @oldincludedir@
@@ -597,6 +599,7 @@ pkglib_LTLIBRARIES = libuart.la libuart_16550.la libflash.la \
 	libac97_s3c6410.la libmfc_s3c6410.la libcamif_s3c6410.la \
 	librtc_s3c6410.la $(am__append_23) libsdl_lcd.la \
 	libs3c6410_keypad.la
+AM_CFLAGS = @COMMON_CFLAGS@ `pkg-config --cflags --libs gtk+-2.0`
 skyeye_bin_dir = \"$(prefix)/bin/\"
 INCLUDES = -I./ @COMMON_INCLUDES@ -I./uart_16550 \
 	-DSKYEYE_BIN=$(skyeye_bin_dir) -I./nandflash @LCD_CFLAGS@ \

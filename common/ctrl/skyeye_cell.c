@@ -89,6 +89,7 @@ skyeye_cell_t* create_cell(){
 	pthread_t id;
 	skyeye_cell_t* cell = (skyeye_cell_t*)skyeye_mm(sizeof(skyeye_cell_t));
 	conf_object_t* argp = get_conf_obj_by_cast(cell, "skyeye_cell_t");
+	printf("%s: cell: %p, argp : %p\n", __FUNCTION__, cell, argp);
 	create_thread(cell_running, argp, &id);
 	cell->thread_id = id;
 	cell->current_exec_id = cell->max_exec_id = 0;
@@ -171,10 +172,17 @@ conf_object_t* get_current_exec_priv(pthread_t id){
 	skyeye_cell_t* cell = get_cell_by_thread_id(id);
 
 	assert(cell != NULL);
+	if (cell == NULL) {
+		printf("%s: cell is NULL, thread id: %llx\n", __FUNCTION__, id);
+		return NULL;
+	}
+
 	LIST_FOREACH(iterator, &cell->exec_head,list_entry){
 		if(iterator->exec_id == cell->current_exec_id){
 			return iterator->priv_data;
 		}
 	}
+
+	printf("%s: cannot find the exec\n", __FUNCTION__);
 	return NULL;
 }
